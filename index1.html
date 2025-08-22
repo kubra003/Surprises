@@ -218,11 +218,14 @@
     </div>
   </div>
 
-  <!-- Continuous music (user will tap Start to begin) -->
-  <audio id="bgm" loop>
-    <!-- Replace this with your Lucky Ali MP3 URL that you own / have rights to -->
-    <source src="C:\Users\Khatijatul Kubra\Downloads\WhatsApp Audio 2025-08-22 at 6.49.15 AM.mp3.mpeg" type="audio/mpeg">
-  </audio>
+ <!-- Continuous music (user must tap Start to allow on mobile) -->
+<audio id="bgm" loop>
+  <source src="C:\Users\Khatijatul Kubra\OneDrive\Documents\surprise\WhatsApp Audio 2025-08-22 at 6.49.15 AM.mp3.mpeg" type="audio/mpeg">
+</audio>
+
+<!-- Button to start the music -->
+<button onclick="document.getElementById('bgm').play()">💖 Start Surprise 💖</button>
+
 
 <script>
   // ---------- Hearts ----------

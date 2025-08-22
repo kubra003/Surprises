@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>For My Love, Tousif ❤️</title>
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+<!-- QRCode CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+<style>
+  :root{
+    --rose:#ff85b8; --deep:#cc2e70; --gold:#ffd166; --mint:#00b894; --bgd:#111;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%; margin:0; font-family:Poppins, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;}
+  body{
+    color:#fff; background:#000; overflow:hidden;
+  }
+
+  /* Healing animated background */
+  .bg{
+    position:fixed; inset:0;
+    background: url("https://e1.pxfuel.com/desktop-wallpaper/657/127/desktop-wallpaper-3d-animated-moving-for-movable-backgrounds.jpg") center/cover no-repeat fixed;
+    filter: brightness(.7) saturate(1.05);
+    transform: scale(1.05);
+    animation: slowzoom 30s ease-in-out infinite alternate;
+    z-index:-3;
+  }
+  @keyframes slowzoom { from { transform:scale(1.02);} to { transform:scale(1.12);} }
+
+  /* Soft overlay */
+  .veil{ position:fixed; inset:0; background: radial-gradient(1200px 800px at 50% -10%, rgba(255,255,255,.1), rgba(0,0,0,.45)); z-index:-2;}
+
+  /* Floating hearts everywhere */
+  #hearts{ position:fixed; inset:0; pointer-events:none; z-index:-1; overflow:hidden;}
+  .heart{
+    position:absolute; top:-5vh; width:18px; height:18px; opacity:.7;
+    background: radial-gradient(circle at 30% 30%, #fff 0 22%, transparent 24%),
+                radial-gradient(circle at 70% 30%, #fff 0 22%, transparent 24%),
+                linear-gradient(135deg, var(--rose), #ff5fa2);
+    transform: rotate(45deg);
+    border-radius: 2px 50% 50% 50%;
+    filter: drop-shadow(0 3px 8px rgba(255,111,169,.35));
+    animation: fall linear forwards;
+  }
+  @keyframes fall { to { transform:translateY(110vh) rotate(45deg); opacity:.15; } }
+
+  /* Container / cards */
+  .wrap{ height:100%; display:grid; place-items:center; padding:16px;}
+  .card{
+    width:min(880px, 92vw);
+    background: rgba(255,255,255,0.10);
+    border: 1px solid rgba(255,255,255,0.15);
+    backdrop-filter: blur(8px);
+    border-radius: 24px;
+    padding: 28px 24px;
+    box-shadow: 0 15px 60px rgba(0,0,0,.45);
+    text-align:center;
+    animation: rise .8s ease;
+  }
+  @keyframes rise{ from{opacity:0; transform: translateY(12px);} to{opacity:1; transform:translateY(0);} }
+
+  h1.fancy{
+    font-family: "Great Vibes", cursive;
+    font-size: clamp(42px, 10vw, 96px);
+    line-height: .9; margin: 0 0 8px;
+    color: #fff;
+    text-shadow: 0 6px 24px rgba(0,0,0,.6), 0 0 30px rgba(255,133,184,.5);
+  }
+  h2{ margin:.4rem 0 1rem; font-weight:700; letter-spacing:.5px; color:var(--gold); }
+  p.lead{ font-size: clamp(16px, 2.8vw, 22px); margin: 8px 0 6px; }
+  .muted{ opacity:.85; }
+
+  .btns{ display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-top:16px; }
+  .btn{
+    background: linear-gradient(135deg, var(--rose), var(--deep));
+    border: none; color:#fff; font-weight:700;
+    padding: 12px 18px; border-radius: 14px; cursor:pointer;
+    box-shadow:0 10px 22px rgba(204,46,112,.35);
+    transition: transform .05s ease, box-shadow .2s;
+  }
+  .btn:active{ transform: translateY(1px); }
+  .ghost{ background: transparent; border:2px solid rgba(255,255,255,.5); }
+  .mint{ background: linear-gradient(135deg, #00d3aa, #00b894); box-shadow:0 10px 22px rgba(0,184,148,.35); }
+  .gold{ background: linear-gradient(135deg, #ffd166, #ffae34); color:#3d2a00; box-shadow:0 10px 22px rgba(255,209,102,.35); }
+  .dark{ background: rgba(0,0,0,.5); border:1px solid rgba(255,255,255,.2); }
+
+  .grid{ display:grid; gap:16px; grid-template-columns: 1fr; }
+  @media (min-width:720px){ .grid{ grid-template-columns: 1fr 1fr; } }
+
+  /* Movie / millionaire images */
+  .imgbox{ overflow:hidden; border-radius:18px; border:1px solid rgba(255,255,255,.2); }
+  .imgbox img{ width:100%; height:auto; display:block; transform:scale(1.02); transition:transform .5s ease; }
+  .imgbox:hover img{ transform:scale(1.07); }
+
+  /* Top actions */
+  .topbar{
+    position:fixed; top:10px; left:50%; transform:translateX(-50%);
+    display:flex; gap:8px; z-index:4;
+  }
+
+  /* Modal simple */
+  .modal{ position:fixed; inset:0; display:none; place-items:center; background:rgba(0,0,0,.55); z-index:5; }
+  .modal .box{
+    width:min(420px, 92vw); background:#111a; backdrop-filter:blur(8px);
+    border:1px solid rgba(255,255,255,.18); padding:18px; border-radius:16px; text-align:center;
+  }
+
+  /* Page control */
+  .page{ display:none; }
+  .page.active{ display:block; }
+
+  /* Yes/No fun */
+  .big{ font-size: clamp(18px, 3.2vw, 22px); }
+</style>
+</head>
+<body>
+  <div class="bg"></div>
+  <div class="veil"></div>
+  <div id="hearts"></div>
+
+  <!-- Top bar actions -->
+  <div class="topbar">
+    <button class="btn dark" id="shareBtn">Share on WhatsApp</button>
+    <button class="btn ghost" id="qrBtn">Show QR</button>
+    <button class="btn ghost" id="musicBtn">⏸️ Pause Music</button>
+  </div>
+
+  <div class="wrap">
+    <div class="card">
+
+      <!-- PAGE 0: Start -->
+      <section class="page active" id="p0">
+        <h1 class="fancy">Tousif</h1>
+        <h2>my forever person 💖</h2>
+        <p class="lead">Tap “Start” to begin your little surprise journey…</p>
+        <div class="btns">
+          <button class="btn gold" id="startBtn">Start ✨</button>
+        </div>
+      </section>
+
+      <!-- PAGE 1: Gratefulness -->
+      <section class="page" id="p1">
+        <h2>My baby</h2>
+        <p class="lead">I’m so grateful to have you as my hubby, Tousif. You make every day brighter and softer. 🌟</p>
+        <div class="btns"><button class="btn mint" data-next="#p2">Next ➜</button></div>
+      </section>
+
+      <!-- PAGE 2: Thankfulness -->
+      <section class="page" id="p2">
+        <h2>My cutiepie</h2>
+        <p class="lead">Thank you for your patience, your care, and your love — even when I’m not perfect. You’re my calm. 🤍</p>
+        <div class="btns"><button class="btn mint" data-next="#p3">Next ➜</button></div>
+      </section>
+
+      <!-- PAGE 3: Prayers -->
+      <section class="page" id="p3">
+        <h2>My Shona Papa</h2>
+        <p class="lead">I pray that you always stay healthy, safe, smiling — and blessed with success in everything you do. ✨</p>
+        <div class="btns"><button class="btn mint" data-next="#p4">Next ➜</button></div>
+      </section>
+
+      <!-- PAGE 4: Lucky Wife -->
+      <section class="page" id="p4">
+        <h2>My chota cuto</h2>
+        <p class="lead">I’m the luckiest to be your wife. Thank you for choosing me, again and again. 💫</p>
+        <div class="btns"><button class="btn mint" data-next="#p5">Next ➜</button></div>
+      </section>
+
+      <!-- PAGE 5: Millionaire Page -->
+      <section class="page" id="p5">
+        <h2>My Millionaire Hubby</h2>
+        <p class="lead">My millionaire hubby!! 💸</p>
+        <div class="imgbox" style="margin:12px 0;">
+          <img src="https://www.lotto.in/images/tickets/dubai-lottery.jpg" alt="Dubai Lottery">
+          <div class="btns"><button class="btn mint" data-next="#p7">Next ➜</button></div>
+        </div>
+      </section>
+
+      
+      <!-- PAGE 7: Date Ask -->
+      <section class="page" id="p7">
+        <h2>Date Today? 🎬🍿</h2>
+        <p class="lead">Let’s go for a movie at <b>Swagath Shankarnag</b> today… pretty please?</p>
+        <div class="btns">
+          <button class="btn gold" id="yesBtn">YES! 💕</button>
+          <button class="btn ghost" id="noBtn">No 😈</button>
+        </div>
+      </section>
+
+      <!-- PAGE 8: Thank You -->
+      <section class="page" id="p8">
+        <h2>Thank you, baby! 💞</h2>
+        <p class="lead">I love you sooo much. You are my today and all of my tomorrows.  
+          “I look at you and see the rest of my life in front of my eyes.”</p>
+        <div class="btns">
+          <button class="btn dark" id="whatsBtn">Share this love page on WhatsApp 💚</button>
+          <button class="btn ghost" data-next="#p0">Replay ↺</button>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <!-- QR Modal -->
+  <div class="modal" id="qrModal">
+    <div class="box">
+      <h3>Scan to open this page</h3>
+      <div id="qrc" style="display:grid; place-items:center; padding:10px;"></div>
+      <div class="btns" style="margin-top:10px;">
+        <button class="btn ghost" id="closeQR">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Continuous music (user will tap Start to begin) -->
+  <audio id="bgm" loop>
+    <!-- Replace this with your Lucky Ali MP3 URL that you own / have rights to -->
+    <source src="C:\Users\Khatijatul Kubra\Downloads\WhatsApp Audio 2025-08-22 at 6.49.15 AM.mp3.mpeg" type="audio/mpeg">
+  </audio>
+
+<script>
+  // ---------- Hearts ----------
+  const hearts = document.getElementById('hearts');
+  function sprinkleHearts(){
+    for (let i=0;i<12;i++){
+      const h = document.createElement('div');
+      h.className='heart';
+      h.style.left = Math.random()*100 + 'vw';
+      h.style.animationDuration = (6 + Math.random()*6) + 's';
+      h.style.transform = `rotate(45deg) translateY(-10vh) scale(${0.6 + Math.random()*1})`;
+      h.style.opacity = (0.4 + Math.random()*0.6);
+      hearts.appendChild(h);
+      setTimeout(()=>h.remove(), 14000);
+    }
+  }
+  sprinkleHearts(); setInterval(sprinkleHearts, 2500);
+
+  // ---------- Page navigation ----------
+  const pages = [...document.querySelectorAll('.page')];
+  function goTo(sel){
+    pages.forEach(p=>p.classList.remove('active'));
+    document.querySelector(sel).classList.add('active');
+  }
+  document.querySelectorAll('[data-next]').forEach(btn=>{
+    btn.addEventListener('click', e => goTo(e.target.getAttribute('data-next')));
+  });
+
+  // ---------- Music control ----------
+  const bgm = document.getElementById('bgm');
+  const musicBtn = document.getElementById('musicBtn');
+  let musicOn = true;
+
+  document.getElementById('startBtn').addEventListener('click', async ()=>{
+    try{ await bgm.play(); }catch(e){ console.log('Autoplay blocked until user gesture.'); }
+    goTo('#p1');
+  });
+
+  musicBtn.addEventListener('click', ()=>{
+    if (musicOn){ bgm.pause(); musicBtn.textContent = '▶️ Play Music'; }
+    else { bgm.play(); musicBtn.textContent = '⏸️ Pause Music'; }
+    musicOn = !musicOn;
+  });
+
+  // ---------- WhatsApp share ----------
+  function currentShareURL(){
+    // If hosted, this will be your public URL; locally it becomes file:// which WhatsApp may ignore.
+    return window.location.href.replace('file://','');
+  }
+  document.getElementById('shareBtn').addEventListener('click', ()=>{
+    const text = encodeURIComponent("Open this ❤️: " + currentShareURL());
+    window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank');
+  });
+  document.getElementById('whatsBtn').addEventListener('click', ()=>{
+    const text = encodeURIComponent("Thank you baby! I love you 💖 " + currentShareURL());
+    window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank');
+  });
+
+  // ---------- QR Code ----------
+  const qrModal = document.getElementById('qrModal');
+  const qrc = document.getElementById('qrc');
+  document.getElementById('qrBtn').addEventListener('click', ()=>{
+    qrModal.style.display='grid';
+    qrc.innerHTML='';
+    new QRCode(qrc, {
+      text: currentShareURL(),
+      width: 220, height: 220,
+      colorDark : "#000000",
+      colorLight : "#ffffff",
+      correctLevel : QRCode.CorrectLevel.H
+    });
+  });
+  document.getElementById('closeQR').addEventListener('click', ()=> qrModal.style.display='none');
+
+  // ---------- Yes / No behavior ----------
+  document.getElementById('noBtn').addEventListener('click', ()=>{
+    // playful voice: "no is not allowed baby!"
+    if ('speechSynthesis' in window){
+      const u = new SpeechSynthesisUtterance("No is not allowed, baby!");
+      u.rate = 0.95; u.pitch = 1.0;
+      speechSynthesis.cancel(); speechSynthesis.speak(u);
+    }
+  });
+
+  document.getElementById('yesBtn').addEventListener('click', ()=>{
+    // Open BookMyShow Swagath link, then show Thank You page
+    window.open('https://in.bookmyshow.com/cinemas/bang/swagath-shankarnag-onyx-led-cinema-mg-road/buytickets/SSNR/20250822');
+    goTo('#p8');
+  });
+</script>
+</body>
+</html>
